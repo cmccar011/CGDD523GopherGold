@@ -58,6 +58,7 @@ public class CharacterSelection : MonoBehaviour
 
     //this is so that we can get them in the target group cam! -Cory
     public List<Transform> selectedRacers = new List<Transform>();
+    public List<int> selectedRacerGophers = new List<int>();
     public PlayerInput pi;
 
 
@@ -83,11 +84,11 @@ public class CharacterSelection : MonoBehaviour
         }
 
         if (
-            Input.GetKeyDown(KeyCode.Alpha1)&&isPicked[0] == false
+            Input.GetKeyDown(KeyCode.Alpha1) && isPicked[0] == false
             )
         {
-                isPicked[lastPlayerJoined] = true;
-                lastPlayerJoined=0;
+            isPicked[lastPlayerJoined] = true;
+            lastPlayerJoined = 0;
         }
         if (
             Input.GetKeyDown(KeyCode.B)
@@ -98,17 +99,17 @@ public class CharacterSelection : MonoBehaviour
             isPicked[lastPlayerJoined] = true;
         }
         if (
-            Input.GetKeyDown(KeyCode.Alpha4)&& (isPicked[2] == false)
+            Input.GetKeyDown(KeyCode.Alpha4) && (isPicked[2] == false)
         )
         {
-            
+
             lastPlayerJoined = 2;
             isPicked[lastPlayerJoined] = true;
         }
         if (
             Input.GetKeyDown(KeyCode.Alpha7) && (isPicked[3] == false)
         )
-        {     
+        {
             lastPlayerJoined = 3;
             isPicked[lastPlayerJoined] = true;
         }
@@ -117,11 +118,11 @@ public class CharacterSelection : MonoBehaviour
 
     public void ShowJoin(int whichG)
     {
-                isPicked[whichG] = true;
-                if (gopherButtons != null && lastPlayerJoined < gopherButtons.Length)
-                {
-                    FadeOutButtonImage(gopherButtons[whichG]);
-                }
+        isPicked[whichG] = true;
+        if (gopherButtons != null && lastPlayerJoined < gopherButtons.Length)
+        {
+            FadeOutButtonImage(gopherButtons[whichG]);
+        }
     }
 
     public void StartGame()
@@ -142,7 +143,7 @@ public class CharacterSelection : MonoBehaviour
         print("here");
         GopherSetup setup = p.gameObject.GetComponent<GopherSetup>();
         p.gameObject.GetComponent<GopherSetup>().SelectGopherData(lastPlayerJoined);
-   
+
         if (GGameManager.instance != null)
         {
             GGameManager.instance.playerList.Add(p.gameObject);
@@ -150,6 +151,7 @@ public class CharacterSelection : MonoBehaviour
         if (!selectedRacers.Contains(p.transform)) //added logic for the cam to get the player positions!
         {
             selectedRacers.Add(p.transform);
+            selectedRacerGophers.Add(lastPlayerJoined);
         }
         ShowJoin(lastPlayerJoined);
     }

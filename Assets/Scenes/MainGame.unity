@@ -1959,7 +1959,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 809.4
-  field of view: 29.99125
+  field of view: 29.998243
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1986,7 +1986,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0.23038116, y: -0.0885475, z: 0.035125814, w: -0.9684266}
-  m_LocalPosition: {x: -60.04252, y: 0.5926082, z: -0.34483147}
+  m_LocalPosition: {x: 4.818963, y: 14.949857, z: -27.78888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2260,7 +2260,7 @@ Transform:
   m_GameObject: {fileID: 501316701}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -60.04, y: 0.581, z: -0.33}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2920,7 +2920,7 @@ Transform:
   m_GameObject: {fileID: 860868531}
   serializedVersion: 2
   m_LocalRotation: {x: -0.23038116, y: -0.0885475, z: 0.035125814, w: -0.9684266}
-  m_LocalPosition: {x: -60.04, y: 0.581, z: -10.33}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5971,6 +5971,7 @@ GameObject:
   - component: {fileID: 1823790529}
   - component: {fileID: 1823790530}
   - component: {fileID: 1823790531}
+  - component: {fileID: 1823790532}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6027,6 +6028,43 @@ MonoBehaviour:
   targetGroup: {fileID: 501316701}
   weight: 1
   radius: 2
+--- !u!114 &1823790532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823790526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af195e1f940e6d748bf0a7843d597540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OffScreenRacerManager
+  targets: {fileID: 0}
+  cam: {fileID: 0}
+  overlayCanvas: {fileID: 0}
+  gopherIcons:
+  - {fileID: 21300000, guid: 5dab29e33f6ce5a46b675c769bf6022c, type: 3}
+  - {fileID: 21300000, guid: 3be645469020e414da041b81435779ab, type: 3}
+  - {fileID: 21300000, guid: 614ed4bd6de75fe4c953b716040821f8, type: 3}
+  - {fileID: 21300000, guid: c53289c60c71e8741a342d0a467e4da7, type: 3}
+  dropBehindRacersFromCamera: 1
+  maxLeaderGap: 50
+  rejoinGapFraction: 0.887
+  iconDelay: 0.1
+  iconSize: 150
+  edgePadding: 20
+  minBlinkHz: 1.5
+  maxBlinkHz: 6
+  blinkOffAlpha: 0.15
+  despawnDistance: 20
+  despawnAfterSeconds: 30
+  respawnDelay: 3
+  respawnViewportX: 0.3
+  respawnHeight: 16
+  boostSpeed: 10
+  boostSeconds: 2
+  respawnImmunity: 2.5
 --- !u!4 &1837852311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3354737501778224527, guid: 424df846634d3234d9d9ed0e3eff8f8d, type: 3}

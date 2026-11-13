@@ -20,7 +20,7 @@ public class MinecartController : MonoBehaviour
 
     [Header("Lane Setup")]
     [SerializeField] private string ignoreNameContains = "Reference"; //Splines whose name contains this text are ignored
-    
+
     [SerializeField] private float laneZTolerance = 0.1f;//splines within this Z distance of each other are treated as the same lane; keep this smaller than the gap between lanes
 
     [SerializeField] private int startLane = -1; //pick the lane nearest this cart's starting z (so -1)
@@ -30,26 +30,26 @@ public class MinecartController : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float maxSpeed = 25f;
-    
+
     [SerializeField] private float acceleration = 15f;
-    
+
     [SerializeField] private float deceleration = 10f;
 
     [Header("Jump Settings")]
 
     [SerializeField] private float jumpImpulse = 12f; //jump launches perpendicular to track surface; on a slope it pushes away from it to look more natural
-    
+
     [SerializeField] private float baseGravity = -25f;
-    
+
     [SerializeField] private float fallGravityMultiplier = 1.8f;
 
     [Header("Jump Rotation")]
 
     [SerializeField, Range(0f, 1f)] private float airTiltAmount = 0.6f; //tilt value, follows an arc when falling (0 stays the way it left the track, 1 fully points along its direction)
-    
+
 
     [SerializeField] private float airRotateSpeed = 7f; //how fast the tilt happens (higher = more snappeh)
-    
+
     [Tooltip("How quickly the cart rotates to match the track on the ground. Also smooths the landing. Lower = softer, higher = rigid.")]
     [SerializeField] private float groundAlignSpeed = 25f; //speed the cart rotates to match the track and smooths the landing. (# lower = softer, higher = sharper)
 
@@ -58,29 +58,33 @@ public class MinecartController : MonoBehaviour
     [SerializeField] private float surfaceOffset = 0f; //height of cart when riding
 
     [SerializeField] private float minSnapDistance = 1.5f; //safety for ensuring a snap (solved bug with falling through ground randomly)
-    
+
     [SerializeField] private float maxFallSpeed = 45f; //helped with falling through ground from falling too quick and clipping
 
     [SerializeField] private float killDepth = 25f; //respawn if you're below this point (!!TEMP for playtesting!!)
 
     [SerializeField] private bool flipSurfaceNormal = false; //safety for spline traversal
-    
+
     [SerializeField] private int nearestResolution = 64;
-    
+
     [SerializeField] private int nearestIterations = 4;
 
     [Header("Lane Switching (Up & Down Input)")]
     [SerializeField] private bool upGoesToHigherZ = true;
-    
+
     [SerializeField] private float switchDuration = 0.2f;
 
     [SerializeField] private float hopHeight = 0.25f; //spline hop landing shmovement
-    
+
     [SerializeField] private float maxHorizontalGap = 1.5f; // check for neighboring lane horizontally
     [Tooltip("...and within this vertical distance of the cart.")]
     [SerializeField] private float maxVerticalGap = 3f; //vertical check for neighboring lane
-    
+
     [SerializeField] private float inputThreshold = 0.6f; //timing for input
+
+    [Header("Respawn")]
+    [SerializeField] private Transform visualRoot;
+    [SerializeField] private float respawnMaxRailGap = 4f;
 
     [Header("Debug")]
     [Tooltip("Logs the lanes found at startup and WHY a lane switch was refused. Turn off when it works.")]
@@ -90,6 +94,9 @@ public class MinecartController : MonoBehaviour
     public bool CanSwitchUp { get; private set; }
     public bool CanSwitchDown { get; private set; }
     public bool IsGrounded => isGrounded;
+    public bool IsOut => isOut;
+    public bool IsBoosting => boostTimer > 0f;
+    public float LaneZ => lanes.Count > 0 ? lanes[currentLane].z : transform.position.z;
 
     ////////////////////////////////// character state /////////////////////////////////////////////////
     private Rigidbody rb;
@@ -118,6 +125,12 @@ public class MinecartController : MonoBehaviour
     private float switchStartZOffset;
     private float zOffset;
     private float yHop;
+
+    private bool isOut;
+    private float boostTimer;
+    private float boostSpeed;
+    private readonly List<Renderer> hiddenRenderers = new List<Renderer>();
+    private readonly List<Collider> hiddenColliders = new List<Collider>();
 
     ////////////////////////////////// input system /////////////////////////////////////////////////
     private Vector2 moveInput;
@@ -169,7 +182,7 @@ public class MinecartController : MonoBehaviour
             }
             lane.segs.Add(p.c);
         }
-        
+
         foreach (var l in lanes)
         {
             l.segs = l.segs.OrderBy(c => c.transform.TransformPoint(c.Spline[0].Position).x).ToList();
@@ -235,30 +248,33 @@ public class MinecartController : MonoBehaviour
         bool down = y < -inputThreshold && prevMoveY >= -inputThreshold;
         prevMoveY = y;
 
+        if (isOut) return;
         if (up) TrySwitchLane(+1);
         else if (down) TrySwitchLane(-1);
     }
 
     public void OnJump(InputValue value)
     {
-        if (value.isPressed && isGrounded)
+        if (value.isPressed && isGrounded && !isOut)
             jumpPressed = true;
     }
-    
+
     public void OnSwitchUp(InputValue value)
     {
-        if (value.isPressed) TrySwitchLane(+1);
+        if (value.isPressed && !isOut) TrySwitchLane(+1);
     }
 
     public void OnSwitchDown(InputValue value)
     {
-        if (value.isPressed) TrySwitchLane(-1);
+        if (value.isPressed && !isOut) TrySwitchLane(-1);
     }
 
     /////////////////////////////////////////////////// update loop /////////////////////////////////////////////////
     private void Update()
     {
-        if (lanes.Count == 0) return;
+        if (lanes.Count == 0 || isOut) return;
+
+        if (boostTimer > 0f) boostTimer -= Time.deltaTime;
 
         UpdateSwitchAnimation();
 
@@ -311,9 +327,136 @@ public class MinecartController : MonoBehaviour
         rb.position = airbornePosition;
     }
 
+    private float TargetSpeed()
+    {
+        float target = moveInput.x * maxSpeed;
+        if (boostTimer > 0f) target = Mathf.Max(target, boostSpeed);
+        return target;
+    }
+
+    public void Eliminate()
+    {
+        if (isOut) return;
+
+        isOut = true;
+        currentSpeed = 0f;
+        airVelocity = Vector2.zero;
+        jumpPressed = false;
+        boostTimer = 0f;
+        switching = false;
+        zOffset = 0f;
+        yHop = 0f;
+        CanSwitchUp = CanSwitchDown = false;
+
+        if (rollingAudioSource != null && rollingAudioSource.isPlaying) rollingAudioSource.Stop();
+        SetPresent(false);
+    }
+
+    public void RespawnAbove(float worldX, float height, float boostSpeedValue, float boostSeconds)
+    {
+        if (lanes.Count == 0) return;
+
+        int bestLane = currentLane, bestSeg = 0;
+        float bestT = 0f, bestDx = float.MaxValue;
+        Vector3 bestPoint = rb.position;
+
+        for (int offset = 0; offset < lanes.Count; offset++)
+        {
+            for (int sign = -1; sign <= 1; sign += 2)
+            {
+                int li = currentLane + offset * sign;
+                if (li < 0 || li >= lanes.Count || (offset == 0 && sign == 1)) continue;
+
+                if (FindRailAtX(li, worldX, out int seg, out float t, out Vector3 point, out float dx) && dx < bestDx)
+                {
+                    bestDx = dx; bestLane = li; bestSeg = seg; bestT = t; bestPoint = point;
+                }
+            }
+            if (bestDx <= respawnMaxRailGap) break;
+        }
+
+        currentLane = bestLane;
+        ActivateSegment(bestSeg);
+        currentDistance = Mathf.Clamp(bestT * activeSplineLength, 0f, activeSplineLength);
+
+        airbornePosition = new Vector3(bestPoint.x, bestPoint.y + height, lanes[currentLane].z);
+        transform.position = airbornePosition;
+        rb.position = airbornePosition;
+
+        facing = 1f;
+        visualRotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+        transform.rotation = visualRotation;
+        rb.rotation = visualRotation;
+
+        airVelocity = new Vector2(boostSpeedValue, 0f);
+        currentSpeed = boostSpeedValue;
+        boostSpeed = boostSpeedValue;
+        boostTimer = boostSeconds;
+
+        isGrounded = false;
+        wasAboveSurface = true;
+        jumpPressed = false;
+        switching = false;
+        zOffset = 0f;
+        yHop = 0f;
+        CanSwitchUp = CanSwitchDown = false;
+
+        RememberSafeSpot();
+
+        isOut = false;
+        SetPresent(true);
+
+        if (debugLogging) Debug.Log($"[{name}] respawned on lane {currentLane} at x={airbornePosition.x:F1}, rail gap {bestDx:F2}");
+    }
+
+    private bool FindRailAtX(int laneIndex, float x, out int seg, out float t, out Vector3 point, out float dx)
+    {
+        seg = 0; t = 0f; point = default; dx = float.MaxValue;
+        var lane = lanes[laneIndex];
+        const int samples = 96;
+
+        for (int i = 0; i < lane.segs.Count; i++)
+        {
+            for (int s = 0; s <= samples; s++)
+            {
+                float tt = s / (float)samples;
+                lane.segs[i].Evaluate(tt, out float3 p, out float3 _tan, out float3 _up);
+                float d = Mathf.Abs(p.x - x);
+                if (d < dx) { dx = d; seg = i; t = tt; point = (Vector3)p; }
+            }
+        }
+        return dx < float.MaxValue;
+    }
+
+    private void SetPresent(bool present)
+    {
+        if (present)
+        {
+            foreach (var r in hiddenRenderers) if (r != null) r.enabled = true;
+            foreach (var c in hiddenColliders) if (c != null) c.enabled = true;
+            hiddenRenderers.Clear();
+            hiddenColliders.Clear();
+            return;
+        }
+
+        Transform root = visualRoot != null ? visualRoot : transform.root;
+        foreach (var r in root.GetComponentsInChildren<Renderer>())
+        {
+            if (!r.enabled) continue;
+            r.enabled = false;
+            hiddenRenderers.Add(r);
+        }
+        foreach (var c in root.GetComponentsInChildren<Collider>())
+        {
+            if (!c.enabled) continue;
+            c.enabled = false;
+            hiddenColliders.Add(c);
+        }
+    }
+
     private void UpdateForwardSpeed() // grounded acceleration
     {
-        float targetSpeed = moveInput.x * maxSpeed;
+        float targetSpeed = TargetSpeed();
 
         if (Mathf.Abs(targetSpeed) > 0.01f)
             currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, acceleration * Time.fixedDeltaTime);
@@ -364,7 +507,7 @@ public class MinecartController : MonoBehaviour
     private void UpdateAirborneMovement()
     {
         // horizontal air control, same feel as the old ground-speed logic
-        float targetX = moveInput.x * maxSpeed;
+        float targetX = TargetSpeed();
         float rate = Mathf.Abs(targetX) > 0.01f ? acceleration : deceleration;
         airVelocity.x = Mathf.MoveTowards(airVelocity.x, targetX, rate * Time.fixedDeltaTime);
 
@@ -434,7 +577,8 @@ public class MinecartController : MonoBehaviour
             ActivateSegment(bestSeg);
             currentDistance = Mathf.Clamp(bestT * activeSplineLength, 0f, activeSplineLength);
 
-            currentSpeed = Mathf.Clamp(airVelocity.x, -maxSpeed, maxSpeed);
+            float limit = boostTimer > 0f ? Mathf.Max(maxSpeed, boostSpeed) : maxSpeed;
+            currentSpeed = Mathf.Clamp(airVelocity.x, -limit, limit);
             airVelocity = Vector2.zero;
             isGrounded = true;
             switching = false;

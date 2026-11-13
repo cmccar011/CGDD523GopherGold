@@ -1,14 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection; //for rebuilding the scene and adding the gophers
+using System.Reflection;
 using UnityEngine;
 
 public class RaceCameraTargets : MonoBehaviour
 {
+    public struct Racer
+    {
+        public MinecartController cart;
+        public int gopherIndex;
+    }
+
     [SerializeField] private GameObject targetGroup;
     [SerializeField] private float weight = 1f;
     [SerializeField] private float radius = 2f;
+
+    private Component group;
+    private MethodInfo add, find, remove;
+    private readonly List<Racer> racers = new List<Racer>();
+
+    public IReadOnlyList<Racer> Racers => racers;
 
     IEnumerator Start()
     {
@@ -17,64 +29,82 @@ public class RaceCameraTargets : MonoBehaviour
         Rebuild();
     }
 
-    List<Transform> GetRacers()
+    void CollectRacers()
     {
-        List<Transform> racers = new List<Transform>();
+        racers.Clear();
+        CharacterSelection sel = CharacterSelection.instance;
 
-        if (CharacterSelection.instance != null)
+        if (sel != null)
         {
-            foreach (Transform t in CharacterSelection.instance.selectedRacers)
+            for (int i = 0; i < sel.selectedRacers.Count; i++)
             {
-                if (t == null || !t.gameObject.activeInHierarchy) 
-                    continue;
+                Transform t = sel.selectedRacers[i];
+                if (t == null || !t.gameObject.activeInHierarchy) continue;
 
-                MinecartController cart = t.GetComponentInChildren<MinecartController>(); //gets the child bc otherwise would grab the empty gameobject's pos
-                if (cart == null) 
-                    cart = t.GetComponentInParent<MinecartController>(); //not in the child? grab the parents!
+                MinecartController cart = t.GetComponentInChildren<MinecartController>();
+                if (cart == null) cart = t.GetComponentInParent<MinecartController>();
+                if (cart == null || ContainsCart(cart)) continue;
 
-                Transform target = cart != null ? cart.transform : t; // ? and : is just a shortened if/else statement (putting in notes for y'all so it's easier to read!)
-                if (!racers.Contains(target)) 
-                    racers.Add(target);
+                int gopher = i < sel.selectedRacerGophers.Count ? sel.selectedRacerGophers[i] : i;
+                racers.Add(new Racer { cart = cart, gopherIndex = gopher });
             }
         }
 
         if (racers.Count == 0)
         {
+            int i = 0;
             foreach (MinecartController cart in FindObjectsByType<MinecartController>(FindObjectsInactive.Exclude))
             {
-                racers.Add(cart.transform);
+                racers.Add(new Racer { cart = cart, gopherIndex = i++ });
             }
         }
-
-        return racers;
     }
 
-    void Rebuild()
+    bool ContainsCart(MinecartController cart)
     {
-        if (targetGroup == null) return;
+        foreach (Racer r in racers) if (r.cart == cart) return true;
+        return false;
+    }
 
-        Component group = null;
+    bool Bind()
+    {
+        if (group != null && add != null) return true;
+        if (targetGroup == null) return false;
+
         foreach (Component c in targetGroup.GetComponents<Component>())
         {
             if (c != null && c.GetType().Name == "CinemachineTargetGroup") { group = c; break; }
         }
-
         Type type = group.GetType();
-        ClearMembers(group, type);
-
-
-        //this was annoying. this is why I needed the reflection package
-        //it looks at the names in TargetGroup, then GetMethod finds what to handle
-        //Invoke calls those methods and actually adds them one by one with all the bells and whistles
-        MethodInfo add = type.GetMethod("AddMember", new[] { typeof(Transform), typeof(float), typeof(float) });
-        MethodInfo find = type.GetMethod("FindMember", new[] { typeof(Transform) });
-        MethodInfo remove = type.GetMethod("RemoveMember", new[] { typeof(Transform) });
+        add = type.GetMethod("AddMember", new[] { typeof(Transform), typeof(float), typeof(float) });
+        find = type.GetMethod("FindMember", new[] { typeof(Transform) });
+        remove = type.GetMethod("RemoveMember", new[] { typeof(Transform) });
 
         if (add == null)
         {
-            Debug.LogWarning("NO ADDMEMBER");
-            return;
+            Debug.LogWarning("ADDMEMBER FOR TGROUP NOT FOUND");
+            return false;
         }
+        return true;
+    }
+
+    public void SetTracked(MinecartController cart, bool tracked)
+    {
+        if (cart == null || !Bind()) return;
+
+        object[] args = { cart.transform };
+        bool present = find != null && (int)find.Invoke(group, args) >= 0;
+
+        if (tracked && !present) add.Invoke(group, new object[] { cart.transform, weight, radius });
+        else if (!tracked && present && remove != null) remove.Invoke(group, args);
+    }
+
+    void Rebuild()
+    {
+        CollectRacers();
+        if (!Bind()) return;
+
+        ClearMembers(group, group.GetType());
 
         if (find != null && remove != null)
         {
@@ -84,25 +114,19 @@ public class RaceCameraTargets : MonoBehaviour
             }
         }
 
-        List<Transform> racers = GetRacers();
         List<string> names = new List<string>();
 
-        foreach (Transform racer in racers)
+        foreach (Racer racer in racers)
         {
-            if (find != null && (int)find.Invoke(group, new object[] { racer }) >= 0) continue;
+            if (find != null && (int)find.Invoke(group, new object[] { racer.cart.transform }) >= 0) continue;
 
-            add.Invoke(group, new object[] { racer, weight, radius });
-            names.Add(racer.name);
+            SetTracked(racer.cart, true);
+            names.Add(racer.cart.name);
         }
 
         Debug.Log(racers.Count + " racer(s), added " + names.Count + ": " + string.Join(", ", names));
     }
 
-
-    // Another part of Reflection that as they are added clears to ensure there are no duplicates (I was getting like, 4-10 gophers carrying over between scenes)
-    // field is just the raw variable, then propertyinfo assigns like a get/set
-    // you have to call them both bc reflection is silly and needs them there as two diff things
-    // think of PropertyInfro as a failsafe for FieldInfo (also if there are ever issues it works with different versions of Cinemachine)
     void ClearMembers(Component group, Type type)
     {
         foreach (string memberName in new[] { "m_Targets", "Targets" })

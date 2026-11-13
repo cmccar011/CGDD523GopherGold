@@ -114,6 +114,7 @@
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX2_FunctionsCorourtines\Scripts\Goal.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\OffScreenRacerManager.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\RailScripts\PlayerRailScript.cs" />
     <Compile Include="Assets\Scripts\MovementScript\SimulatedPhysicsBasedMovement.cs" />
