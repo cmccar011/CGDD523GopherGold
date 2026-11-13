@@ -20,11 +20,8 @@ public class CharacterSelection : MonoBehaviour
     public Button[] gopherButtons = new Button[4];
     public List<String> gopherNames = new List<String>();
     public String currentGophName = "";
-
-    //public List<String> gopherRacers = new List<String>();
     public static CharacterSelection instance;
 
-    //[SerializeField] public List<Gopher> gopherData;
     [SerializeField]
     public List<Gopher> activeRacers = new List<Gopher>();
 
@@ -59,9 +56,11 @@ public class CharacterSelection : MonoBehaviour
     public List<Gopher> gopherObjectList;
     public int lastPlayerJoined;
 
+    //this is so that we can get them in the target group cam! -Cory
+    public List<Transform> selectedRacers = new List<Transform>();
     public PlayerInput pi;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -69,7 +68,7 @@ public class CharacterSelection : MonoBehaviour
         {
             instance = this;
         }
-        //changeChoosePlayer();
+
         isPicked[0] = false;
         isPicked[1] = false;
         isPicked[2] = false;
@@ -125,23 +124,12 @@ public class CharacterSelection : MonoBehaviour
                 }
     }
 
-
     public void StartGame()
     {
         Gopher currentPlayer = new Gopher();
 
         isStarted = true;
 
-        /* Delete Probably
-        PlayerPrefs.SetInt("TotalPlayers", selectedGopher.Count);
-        for (int i = 0; i < selectedGopher.Count; i++)
-        {
-            PlayerPrefs.SetInt("Player " + (i + 1) + "Gopher ID", selectedGopher[i]);
-            //PlayerPrefs.SetString("Gopher Name", selectedGopher);
-        }
-
-        PlayerPrefs.Save();
-        */
         print(CharacterSelection.instance.activeRacers);
 
         gameObject.GetComponent<PlayerInputManager>().enabled = false;
@@ -158,11 +146,12 @@ public class CharacterSelection : MonoBehaviour
         if (GGameManager.instance != null)
         {
             GGameManager.instance.playerList.Add(p.gameObject);
-            //GGameManager.instance.playerList.Add(p.gameObject);
+        }
+        if (!selectedRacers.Contains(p.transform)) //added logic for the cam to get the player positions!
+        {
+            selectedRacers.Add(p.transform);
         }
         ShowJoin(lastPlayerJoined);
-       
-     
     }
 
     public void FadeOutButtonImage(UnityEngine.UI.Button targetButton)

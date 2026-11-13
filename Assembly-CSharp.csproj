@@ -53,6 +53,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.5.10f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CoinLogic\CoinScoreUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\MovementScript\PlayerMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -62,13 +63,12 @@
     <Compile Include="Assets\Exercise2 (523)\Assets\Scripts\RaceGoal.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\UIManager.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\PlayerSetup.cs" />
-    <Compile Include="Assets\Scripts\CoinGrabbing.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\UIManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Managers\GopherSetup.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\Scripts\Gopher.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\Simple2DPlayerController.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX2_FunctionsCorourtines\Scripts\Racer.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\PowerUp_Pause.cs" />
@@ -81,7 +81,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\Ex1_Arrays Lists\Scripts\BabyNameGen.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\SetupManager.cs" />
     <Compile Include="Assets\Scripts\EndScreen.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\GameManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
@@ -92,21 +91,24 @@
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\CharacterSelection.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Scripts\Managers\Gopher.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\MovementScript\MinecartController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
-    <Compile Include="Assets\Scripts\CoinScoreUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\RailScripts\RailScript.cs" />
-    <Compile Include="Assets\Scripts\GopherSetup.cs" />
+    <Compile Include="Assets\Scripts\CoinLogic\CoinGrabbing.cs" />
+    <Compile Include="Assets\Scripts\Camera Info\RaceCameraTargets.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\KeyboardSplitter.cs" />
+    <Compile Include="Assets\Scripts\Managers\GGameManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Managers\SetupManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\SoundManager.cs" />
@@ -130,13 +132,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX3_StaticSingletons\Scripts\Simple2DPlayerController.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleSprite.cs" />
-    <Compile Include="Assets\Scripts\GGameManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\EX4_InputSystem\Scripts\GameManager.cs" />
     <Compile Include="Assets\Exercise2 (523)\Assets\Exercises\Ex1_Arrays Lists\Scripts\Magic8Ball.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUIToolkit.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
-    <Compile Include="Assets\Scripts\NewMonoBehaviourScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Exercise2 (523)\Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />

@@ -1959,7 +1959,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 809.4
-  field of view: 30.000029
+  field of view: 29.99125
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1986,7 +1986,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0.23038116, y: -0.0885475, z: 0.035125814, w: -0.9684266}
-  m_LocalPosition: {x: -55.221043, y: 15.530857, z: -28.118877}
+  m_LocalPosition: {x: -60.04252, y: 0.5926082, z: -0.34483147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2241,10 +2241,10 @@ MonoBehaviour:
   - Object: {fileID: 0}
     Weight: 0.5
     Radius: 0
-  - Object: {fileID: 7937195568830091893}
+  - Object: {fileID: 0}
     Weight: 0.5
     Radius: 0
-  - Object: {fileID: 7660419802241784173, guid: 3194169aff4e87b48b954792b84fc588, type: 3}
+  - Object: {fileID: 0}
     Weight: 0.5
     Radius: 0
   - Object: {fileID: 0}
@@ -5970,6 +5970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1823790529}
   - component: {fileID: 1823790530}
+  - component: {fileID: 1823790531}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6011,6 +6012,21 @@ MonoBehaviour:
   - {fileID: 1265809973}
   - {fileID: 1270038201}
   - {fileID: 1931008417}
+--- !u!114 &1823790531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823790526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276bedf45553d5d4ca8c47f0b3c278af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceCameraTargets
+  targetGroup: {fileID: 501316701}
+  weight: 1
+  radius: 2
 --- !u!4 &1837852311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3354737501778224527, guid: 424df846634d3234d9d9ed0e3eff8f8d, type: 3}
