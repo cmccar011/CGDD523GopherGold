@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1e8f57bac1b6141865dcb054cecf6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SplineMesh.Runtime::SplineMeshTools.Core.SplineMeshResolution
-  autoGenerateMesh: 0
+  autoGenerateMesh: 1
   segmentMesh: {fileID: 2150044562243273127, guid: 404e80802f8a8ca4ea90100e373615cd, type: 3}
   meshName: Track Spline
   forwardAxis: 1
@@ -1619,38 +1619,18 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -3.9885104
+        z: -3.8093657
       TangentOut:
         x: 0
         y: 0
-        z: 0.7444905
+        z: 3.8093657
       Rotation:
         value:
-          x: -0.5165826
-          y: 0.48284823
-          z: -0.48284823
-          w: 0.51658255
-    - Position:
-        x: 868.13586
-        y: -22.878979
-        z: -69
-      TangentIn:
-        x: -0
-        y: -0
-        z: -0.13272403
-      TangentOut:
-        x: 0
-        y: 0
-        z: 0.13272403
-      Rotation:
-        value:
-          x: 0.50293237
-          y: -0.49705032
-          z: 0.49705032
-          w: -0.5029324
+          x: -0.5298318
+          y: 0.46827155
+          z: -0.46827155
+          w: 0.5298318
     m_MetaData:
-    - Mode: 0
-      Tension: 0.5
     - Mode: 0
       Tension: 0.5
     - Mode: 0
@@ -1704,8 +1684,105 @@ MonoBehaviour:
       m_Data: []
     m_ObjectData:
       m_Data: []
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 866.8087
+        y: -22.894592
+        z: -69
+      TangentIn:
+        x: 0
+        y: 0
+        z: -33.81765
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0
+      Rotation:
+        value:
+          x: -0.70710665
+          y: 0
+          z: -0
+          w: 0.7071069
+    - Position:
+        x: 983.3929
+        y: -0.00000016509875
+        z: -63.245262
+      TangentIn:
+        x: -0
+        y: -0
+        z: -31.142178
+      TangentOut:
+        x: 0
+        y: 0
+        z: 20.296991
+      Rotation:
+        value:
+          x: -0.032980897
+          y: 0.6925135
+          z: 0.03553478
+          w: 0.71977407
+    - Position:
+        x: 1033.9
+        y: 0
+        z: -61.8
+      TangentIn:
+        x: -0
+        y: -0
+        z: -15.288328
+      TangentOut:
+        x: 0
+        y: 0
+        z: 12.706201
+      Rotation:
+        value:
+          x: -3.3100245e-10
+          y: 0.7004997
+          z: 8.2896645e-10
+          w: 0.7136528
+    - Position:
+        x: 1068.8
+        y: 0
+        z: -61.5
+      TangentIn:
+        x: -0
+        y: -0
+        z: -3.4901314
+      TangentOut:
+        x: 0
+        y: 0
+        z: 3.4901314
+      Rotation:
+        value:
+          x: -4.0049103e-10
+          y: 0.7040612
+          z: -4.039484e-10
+          w: 0.71013933
+    m_MetaData:
+    - Mode: 3
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
   m_Knots:
-    m_KnotsLink: []
+    m_KnotsLink:
+    - Knots:
+      - Spline: 1
+        Knot: 0
+      - Spline: 0
+        Knot: 21
 --- !u!4 &254171396
 Transform:
   m_ObjectHideFlags: 0
@@ -4561,7 +4638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1359557798
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5184,7 +5261,7 @@ Transform:
   m_GameObject: {fileID: 1359557797}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 997.1, y: -22.9, z: 69}
+  m_LocalPosition: {x: 997.1, y: -22.9, z: 231}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
