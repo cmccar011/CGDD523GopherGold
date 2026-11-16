@@ -5098,7 +5098,7 @@ MonoBehaviour:
   startLane: -1
   assignLaneByPlayerIndex: 0
   currentDistance: 0
-  maxSpeed: 40
+  maxSpeed: 15
   acceleration: 20
   deceleration: 15
   jumpImpulse: 12
@@ -5120,6 +5120,8 @@ MonoBehaviour:
   maxHorizontalGap: 1.5
   maxVerticalGap: 3
   inputThreshold: 0.6
+  visualRoot: {fileID: 0}
+  respawnMaxRailGap: 4
   debugLogging: 1
   rollingAudioSource: {fileID: 2657167701548694843}
 --- !u!114 &327413080901869075

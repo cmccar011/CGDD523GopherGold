@@ -1,8 +1,6 @@
-using UnityEngine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
-
 
 [CreateAssetMenu(fileName = "Gopher", menuName = "Scriptable Objects/Gopher")]
 public class Gopher : ScriptableObject
@@ -10,7 +8,7 @@ public class Gopher : ScriptableObject
     [Header("MOVEMENT SETTINGS")]
     public float maxSpeed;
     public float acceleration;
-    public float deceleration; 
+    public float deceleration;
 
     [Header("PLAYER INFO")]
     public string playerName;
@@ -19,7 +17,7 @@ public class Gopher : ScriptableObject
     public bool inGame;
     public bool finished;
     public bool didYaWin;
-    public Color uiColor; 
+    public Color uiColor;
 
     public GameObject gopherGame;
 }
