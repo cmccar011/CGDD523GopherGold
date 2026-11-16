@@ -60,7 +60,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false,
@@ -97,9 +97,9 @@
                     "priority": 0
                 },
                 {
-                    "name": "PressSpace",
+                    "name": "PressEnter",
                     "type": "Button",
-                    "id": "da29427f-5a50-466c-b012-0d95e8dcd44b",
+                    "id": "9bf167e4-060a-4393-85a2-1effc4697469",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -107,9 +107,9 @@
                     "priority": 0
                 },
                 {
-                    "name": "PressEnter",
+                    "name": "Boomerang",
                     "type": "Button",
-                    "id": "9bf167e4-060a-4393-85a2-1effc4697469",
+                    "id": "83054c78-c28c-4bf4-a313-a73aa1812460",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -505,23 +505,23 @@
                 },
                 {
                     "name": "",
-                    "id": "5f5003c2-691a-45f1-8a72-6013b32834fb",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PressSpace",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ac7f3f66-e3ba-4609-a1a0-00d4a6da81c6",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "PressEnter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21aae5bb-2cdf-49ea-8be2-332464fcecf4",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boomerang",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

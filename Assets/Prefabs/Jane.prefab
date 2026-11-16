@@ -171,6 +171,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cea3253fb789e4ab963d4aebf0911d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2828616996584715575}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cea3253fb789e4ab963d4aebf0911d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2902053674926131527}
   m_SourcePrefab: {fileID: 100100000, guid: e8cea3253fb789e4ab963d4aebf0911d, type: 3}
 --- !u!4 &1597607958738872867 stripped
 Transform:
@@ -259,8 +262,8 @@ MonoBehaviour:
   startLane: -1
   assignLaneByPlayerIndex: 0
   currentDistance: 0
-  maxSpeed: 15
-  acceleration: 20
+  maxSpeed: 40
+  acceleration: 25
   deceleration: 15
   jumpImpulse: 12
   baseGravity: -25
@@ -281,7 +284,68 @@ MonoBehaviour:
   maxHorizontalGap: 1.5
   maxVerticalGap: 3
   inputThreshold: 0.6
+  stunDeceleration: 30
   visualRoot: {fileID: 0}
   respawnMaxRailGap: 4
   debugLogging: 1
   rollingAudioSource: {fileID: 0}
+--- !u!114 &2902053674926131527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116699889945014425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ba602a8d58970499e54487b79521de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HatBoomerang
+  hatPrefab: {fileID: 6336505803882662384, guid: fc7abea64b3e8994b9f1c88a47167431, type: 3}
+  hatSprite: {fileID: 21300000, guid: 5dab29e33f6ce5a46b675c769bf6022c, type: 3}
+  throwOrigin: {fileID: 1597607958738872867}
+  originOffset: {x: 1, y: 0.6}
+  helmetToHide: {fileID: 0}
+  spinSpeed: 720
+  minDistance: 4
+  maxDistance: 30
+  maxChargeTime: 2
+  minSpeed: 24
+  maxSpeed: 28
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  returnMirrorsDistance: 0
+  catchDistance: 1.2
+  maxFlightTime: 8
+  hitRadius: 1
+  laneTolerance: 0.75
+  canHitOnReturn: 1
+  stunDuration: 1
+  stunAnimDuration: 0.4
+  liftHeight: 1
+  liftDuration: 1
+  shakeAmplitude: 0.3
+  shakeDuration: 0.25
+  debugLogging: 1

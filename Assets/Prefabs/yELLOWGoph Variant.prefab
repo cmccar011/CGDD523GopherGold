@@ -100,6 +100,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5974931087021094469, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+      propertyPath: hatPrefab
+      value: 
+      objectReference: {fileID: 5730859654982055870, guid: f66b6d77c84cd7c4fbe89211a36ddeea, type: 3}
+    - target: {fileID: 5974931087021094469, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+      propertyPath: hatSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c53289c60c71e8741a342d0a467e4da7, type: 3}
+    - target: {fileID: 5974931087021094469, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+      propertyPath: maxDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974931087021094469, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+      propertyPath: maxChargeTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6254982846442892171, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -59.49
@@ -151,10 +167,78 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6254982846442892171, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2381967084701706836}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6739066671305306417, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4346694220480822803}
   m_SourcePrefab: {fileID: 100100000, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
 --- !u!4 &7011487391835433491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6254982846442892171, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
   m_PrefabInstance: {fileID: 4000295294730813848}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7639826867449196713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6739066671305306417, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+  m_PrefabInstance: {fileID: 4000295294730813848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4346694220480822803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639826867449196713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ba602a8d58970499e54487b79521de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HatBoomerang
+  hatPrefab: {fileID: 5730859654982055870, guid: f66b6d77c84cd7c4fbe89211a36ddeea, type: 3}
+  hatSprite: {fileID: 0}
+  throwOrigin: {fileID: 0}
+  originOffset: {x: 1, y: 0.6}
+  helmetToHide: {fileID: 0}
+  spinSpeed: 720
+  minDistance: 4
+  maxDistance: 16
+  maxChargeTime: 1.2
+  minSpeed: 8
+  maxSpeed: 28
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  returnMirrorsDistance: 0
+  catchDistance: 1.2
+  maxFlightTime: 8
+  hitRadius: 1
+  laneTolerance: 0.75
+  canHitOnReturn: 1
+  stunDuration: 1.5
+  stunAnimDuration: 0.8
+  liftHeight: 1
+  liftDuration: 1
+  shakeAmplitude: 0.3
+  shakeDuration: 0.25
+  debugLogging: 1

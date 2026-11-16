@@ -231,6 +231,8 @@ public class OffScreenRacerManager : MonoBehaviour
 
         e.cart.RespawnAbove(WorldXAtViewport(respawnViewportX, e.cart.LaneZ), respawnHeight, boostSpeed, boostSeconds);
 
+        e.cart.Status.SetInvulnerable(respawnImmunity);
+
         targets.SetTracked(e.cart, true);
         e.inGroup = true;
         e.offTimer = 0f;

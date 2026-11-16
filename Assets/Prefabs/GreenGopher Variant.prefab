@@ -5015,6 +5015,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7308574725507538340, guid: bd91fbcacf35bf3419c7b0f9654600ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2657167701548694843}
+    - targetCorrespondingSourceObject: {fileID: 7308574725507538340, guid: bd91fbcacf35bf3419c7b0f9654600ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6155930606101066699}
+    - targetCorrespondingSourceObject: {fileID: 7308574725507538340, guid: bd91fbcacf35bf3419c7b0f9654600ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3919943413352459330}
   m_SourcePrefab: {fileID: 100100000, guid: bd91fbcacf35bf3419c7b0f9654600ff, type: 3}
 --- !u!1 &6990879190682502103 stripped
 GameObject:
@@ -5098,8 +5104,8 @@ MonoBehaviour:
   startLane: -1
   assignLaneByPlayerIndex: 0
   currentDistance: 0
-  maxSpeed: 15
-  acceleration: 20
+  maxSpeed: 40
+  acceleration: 25
   deceleration: 15
   jumpImpulse: 12
   baseGravity: -25
@@ -5120,6 +5126,7 @@ MonoBehaviour:
   maxHorizontalGap: 1.5
   maxVerticalGap: 3
   inputThreshold: 0.6
+  stunDeceleration: 30
   visualRoot: {fileID: 0}
   respawnMaxRailGap: 4
   debugLogging: 1
@@ -5333,6 +5340,84 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6155930606101066699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6990879190682502103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0fc08d4b8988b4280c49694f1d755b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CartStatus
+  stunRenderer: {fileID: 0}
+  stunSpriteA: {fileID: 0}
+  stunSpriteB: {fileID: 0}
+  stunSpriteInterval: 0.12
+  blinkHz: 8
+  graceAfterStun: 0.5
+--- !u!114 &3919943413352459330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6990879190682502103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ba602a8d58970499e54487b79521de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HatBoomerang
+  hatPrefab: {fileID: 2934927870779164746, guid: 4b0de9a4a38f4874b845e8e3afa817c6, type: 3}
+  hatSprite: {fileID: 21300000, guid: 3be645469020e414da041b81435779ab, type: 3}
+  throwOrigin: {fileID: 7660419802241784173}
+  originOffset: {x: 1, y: 0.6}
+  helmetToHide: {fileID: 0}
+  spinSpeed: 720
+  minDistance: 4
+  maxDistance: 200
+  maxChargeTime: 2
+  minSpeed: 100
+  maxSpeed: 160
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  returnMirrorsDistance: 0
+  catchDistance: 1.2
+  maxFlightTime: 8
+  hitRadius: 1
+  laneTolerance: 0.75
+  canHitOnReturn: 1
+  stunDuration: 1
+  stunAnimDuration: 0.4
+  liftHeight: 1
+  liftDuration: 1
+  shakeAmplitude: 0.3
+  shakeDuration: 0.25
+  debugLogging: 1
 --- !u!4 &7660419802241784173 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7937195568730081054, guid: bd91fbcacf35bf3419c7b0f9654600ff, type: 3}
