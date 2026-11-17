@@ -18,6 +18,7 @@ public class CharacterSelection : MonoBehaviour
     public List<int> selectedGopher = new List<int>();
     public Boolean isStarted = false;
     public Button[] gopherButtons = new Button[4];
+    public Button startButton; 
     public List<String> gopherNames = new List<String>();
     public String currentGophName = "";
     public static CharacterSelection instance;
@@ -74,6 +75,11 @@ public class CharacterSelection : MonoBehaviour
         isPicked[1] = false;
         isPicked[2] = false;
         isPicked[3] = false;
+
+        if(startButton == null)
+        {
+            startButton = GetComponent<Button>(); 
+        }
     }
 
     private void Update()
@@ -113,6 +119,10 @@ public class CharacterSelection : MonoBehaviour
             lastPlayerJoined = 3;
             isPicked[lastPlayerJoined] = true;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            startButton.onClick.Invoke(); 
+        }
     }
 
 
@@ -136,7 +146,15 @@ public class CharacterSelection : MonoBehaviour
         gameObject.GetComponent<PlayerInputManager>().enabled = false;
         this.enabled = false;
         SceneManager.LoadScene(1);
+
     }
+
+    public void OnStartGame()
+    {
+        print("blek");
+        SceneManager.LoadScene(1);
+    }
+   // public void OnSpaceDown
 
     public void OnPlayerJoined(PlayerInput p)
     {

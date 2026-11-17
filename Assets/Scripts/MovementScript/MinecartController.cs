@@ -1,10 +1,11 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Splines;
-using Unity.Mathematics;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.Splines;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MinecartController : MonoBehaviour
@@ -147,6 +148,8 @@ public class MinecartController : MonoBehaviour
     private float prevMoveY;
     private bool jumpPressed;
 
+    public bool isStarted = false; 
+
     UnityEvent playerJoin;
 
     [Header("Rolling Audio")]
@@ -183,6 +186,24 @@ public class MinecartController : MonoBehaviour
         All.Remove(this);
     }
 
+    //Start game scripit 
+    public void StartGame()
+    {
+        Gopher currentPlayer = new Gopher();
+
+        isStarted = true;
+
+        print(CharacterSelection.instance.activeRacers);
+
+        gameObject.GetComponent<PlayerInputManager>().enabled = false;
+        this.enabled = false;
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnStartGame()
+    {
+        StartGame();
+    }
     private void BuildLanes()
     {
         lanes.Clear();

@@ -35,6 +35,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "StartGame",
+                    "type": "Button",
+                    "id": "fa8b2efe-438d-45de-a3db-a0add915369c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -112,6 +122,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Boomerang",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69d2d4df-f5d3-45d3-a966-e7ef36fc10d9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
