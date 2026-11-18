@@ -4,59 +4,70 @@ using UnityEngine;
 
 public class Countdown : MonoBehaviour
 {
+    [Header("COUNTDOWN AUDIO")]
+    public AudioSource countdownAudioSource;
+    public AudioClip countdownBeep;
+    public AudioClip goSound;
     public TMP_Text countdownText;
 
-    //scripts that control the racers' movement
-    public MinecartController[] racerMovementScripts;
+    private MinecartController[] minecartControllers;
+    private Rigidbody[] racerRigidbodies;
 
-    // how long each countdown number stays on screen
     public float countdownDuration = 1f;
-
-    void Awake()
-    {
-        // prevent the racers from moving before the race begins
-        foreach (Behaviour movementScript in racerMovementScripts)
-        {
-            if (movementScript != null)
-            {
-                movementScript.enabled = false;
-            }
-        }
-    }
 
     void Start()
     {
-        // start the countdown when the scene begins
         StartCoroutine(StartCountdown());
     }
 
     IEnumerator StartCountdown()
     {
-        // Display 3, 2, then 1
-        for (int i = 3; i > 0; i--)
-        {
-            countdownText.text = i.ToString();
+        // Wait one frame for racers to be instantiated
+        yield return null;
 
-            // wait one second before showing the next number
-            yield return new WaitForSeconds(countdownDuration);
+        // Find the racers' movement scripts
+        minecartControllers = FindObjectsByType<MinecartController>();
+
+        // Disable racer movement
+        foreach (MinecartController script in minecartControllers)
+        {
+            if (script != null)
+                script.enabled = false;
         }
 
-        // tell the players the race is starting
-        countdownText.text = "GO!";
+        // Find and freeze the racers' rigidbodies
+        racerRigidbodies = new Rigidbody[minecartControllers.Length];
 
-        // keep GO on screen briefly
-        yield return new WaitForSeconds(0.75f);
-
-        // allow the racers to move
-        foreach (MinecartController movementScript in racerMovementScripts)
+        for (int i = 0; i < minecartControllers.Length; i++)
         {
-            if (movementScript != null)
+            racerRigidbodies[i] = minecartControllers[i].GetComponent<Rigidbody>();
+
+            if (racerRigidbodies[i] != null)
             {
-                movementScript.enabled = true;
+                racerRigidbodies[i].linearVelocity = Vector3.zero;
+                racerRigidbodies[i].angularVelocity = Vector3.zero;
             }
         }
 
-        // hide the countdown after the race begins
+        // Display countdown
+        for (int i = 3; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            countdownAudioSource.PlayOneShot(countdownBeep);
+            yield return new WaitForSeconds(countdownDuration);
+        }
+
+        countdownText.text = "GO!";
+        countdownAudioSource.PlayOneShot(goSound);
+        yield return new WaitForSeconds(0.75f);
+
+        // Re-enable movement scripts
+        foreach (MinecartController script in minecartControllers)
+        {
+            if (script != null)
+                script.enabled = true;
+        }
+
         countdownText.gameObject.SetActive(false);
     }
 }
