@@ -5135,6 +5135,7 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   respawnMaxRailGap: 4
   debugLogging: 1
+  isStarted: 0
   rollingAudioSource: {fileID: 7245961810183336491}
 --- !u!114 &2376091782897185139
 MonoBehaviour:
@@ -5357,10 +5358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0fc08d4b8988b4280c49694f1d755b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CartStatus
-  stunRenderer: {fileID: 0}
-  stunSpriteA: {fileID: 0}
-  stunSpriteB: {fileID: 0}
-  stunSpriteInterval: 0.12
+  stunRenderer: {fileID: 5935423744770052334}
+  stunSpriteA: {fileID: 21300000, guid: 92e4a9923d599d441a385c199698deab, type: 3}
+  stunSpriteB: {fileID: 21300000, guid: ba2aca8869cd524419127c56ca0867b5, type: 3}
+  stunSpriteInterval: 0.3
   blinkHz: 8
   graceAfterStun: 0.5
 --- !u!114 &5974931087021094469

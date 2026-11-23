@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0.32664007, y: 2.31886, z: 0.05000308}
-  m_LocalScale: {x: 0.5226999, y: 0.5227, z: 0.5226999}
+  m_LocalScale: {x: 0.5673214, y: 0.5673214, z: 0.5673214}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1597607958738872867}
@@ -183,6 +183,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cea3253fb789e4ab963d4aebf0911d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2333391832594845900}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cea3253fb789e4ab963d4aebf0911d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 674187105278377811}
   m_SourcePrefab: {fileID: 100100000, guid: e8cea3253fb789e4ab963d4aebf0911d, type: 3}
 --- !u!4 &1597607958738872867 stripped
 Transform:
@@ -297,6 +300,7 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   respawnMaxRailGap: 4
   debugLogging: 1
+  isStarted: 0
   rollingAudioSource: {fileID: -2333391832594845900}
 --- !u!114 &-7421189402211345711
 MonoBehaviour:
@@ -332,10 +336,10 @@ MonoBehaviour:
   helmetToHide: {fileID: 0}
   spinSpeed: 720
   minDistance: 4
-  maxDistance: 30
+  maxDistance: 200
   maxChargeTime: 2
-  minSpeed: 24
-  maxSpeed: 28
+  minSpeed: 100
+  maxSpeed: 160
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -567,3 +571,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &674187105278377811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116699889945014425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0fc08d4b8988b4280c49694f1d755b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CartStatus
+  stunRenderer: {fileID: 6303409259982051469}
+  stunSpriteA: {fileID: 21300000, guid: bb372364d4d47c346b70af2fd7ad0e70, type: 3}
+  stunSpriteB: {fileID: 21300000, guid: dc8a75d54fd2e0a4ba2b90c0d05cb323, type: 3}
+  stunSpriteInterval: 0.3
+  blinkHz: 8
+  graceAfterStun: 0.5
