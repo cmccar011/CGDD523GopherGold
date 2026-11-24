@@ -10,18 +10,31 @@ public class SetupManager : MonoBehaviour
     public List<GameObject> playerList;
     public int playerTotal = 0;
     public Transform[] startPos;
+    public CoinScoreUI coinScoreUI;
 
     //public List<TMP_Text> playerTexts = new List<TMP_Text>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         int i = 0;
+
         foreach (GameObject g in GGameManager.instance.playerList)
         {
             GameObject prefab = g.GetComponent<GopherSetup>().ourGopher.gopherGame;
+
             g.transform.position = startPos[i].position;
-            Instantiate(prefab, g.transform);
+
+            GameObject spawnedGopher = Instantiate(prefab, g.transform);
+
+            // Find the coin counter on the newly spawned gopher.
+            PlayerCoinCounter counter = spawnedGopher.GetComponentInChildren<PlayerCoinCounter>();
+
+            // Connect the spawned gopher's counter to the UI.
+            if (counter != null)
+            {
+                coinScoreUI.AssignPlayerCounter(i, counter);
+            }
+
             i++;
         }
     }

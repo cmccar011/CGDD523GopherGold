@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreenGoph.unity
     guid: 26b4fb538b97f0048944ad2182e83650
   - enabled: 1
+    path: Assets/Scenes/David's Scene.unity
+    guid: bc27e4837e29a624ca05fb883fc9015f
+  - enabled: 0
     path: Assets/Scenes/MainGame 1.unity
     guid: a3b14eeca3ea0d34baa5f1050c55ca0e
   - enabled: 0

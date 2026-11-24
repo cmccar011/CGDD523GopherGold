@@ -1,12 +1,12 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
-using NUnit.Framework;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
 public class CoinScoreUI : MonoBehaviour
 {
-    public int playerTotal = 0; 
+    public int playerTotal = 0;
 
     [Header("Player Coin Counters")]
     public PlayerCoinCounter TobyCC;
@@ -23,16 +23,36 @@ public class CoinScoreUI : MonoBehaviour
     public void StartGame()
     {
         playerTotal = PlayerPrefs.GetInt("TotalPlayers");
-        for(int i =0; i <= playerTotal; i++)
-        {
-
-        }
+        for (int i = 0; i <= playerTotal; i++) { }
     }
+
     void Update()
     {
-       // player1Text.text = TobyCC.coinCount.ToString();
-       // player2Text.text = player2.coinCount.ToString();
-       // player3Text.text = player3.coinCount.ToString();
-       // player4Text.text = player4.coinCount.ToString();
+        player1Text.text = TobyCC.coinCount.ToString();
+        player2Text.text = player2.coinCount.ToString();
+        player3Text.text = player3.coinCount.ToString();
+        player4Text.text = player4.coinCount.ToString();
+    }
+
+    public void AssignPlayerCounter(int index, PlayerCoinCounter counter)
+    {
+        switch (index)
+        {
+            case 0:
+                TobyCC = counter;
+                break;
+
+            case 1:
+                player2 = counter;
+                break;
+
+            case 2:
+                player3 = counter;
+                break;
+
+            case 3:
+                player4 = counter;
+                break;
+        }
     }
 }
