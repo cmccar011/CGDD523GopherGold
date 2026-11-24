@@ -176,6 +176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: yELLOWGoph Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6739066671305306417, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
+      propertyPath: m_TagString
+      value: Pope
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6860686128528738343, guid: 1d0c134dff2fbbe4c8e4a9539c82ce6d, type: 3}
